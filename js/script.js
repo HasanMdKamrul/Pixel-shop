@@ -118,16 +118,15 @@ const dataDisplay = async()=>{
           <span class="text-3xl font-bold text-gray-900 dark:text-white"
             >$${price}</span
           >
-          <a
-            href="#"
+          <button
+            onclick="loadPhones('${id}')"
             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >Details</a
-          >
-          <a
-            href="#"
+            >Details</
+          button>
+          <button
             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >Add to cart</a
-          >
+            >Add to cart</
+          button>
         </div>
       </div>
 
@@ -137,5 +136,20 @@ const dataDisplay = async()=>{
 
     })
 };
+
+// ** load individual phone details
+
+const loadPhones = async(productId)=>{
+    // ** load all products data
+
+    const phones = await dataLoader();
+
+    const phone = phones.find(phone => phone.id === productId);
+
+    return phone;
+};
+
+// ** display individual phone on modal
+
 
 dataDisplay()
