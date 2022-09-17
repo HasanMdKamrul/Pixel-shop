@@ -13,6 +13,11 @@
       rel="stylesheet"
       href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css"
     />
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@2.28.0/dist/full.css"
+      rel="stylesheet"
+      type="text/css"
+    />
   </head>
   <body class="dark:bg-slate-900">
     <!-- ** navbar -->
@@ -130,6 +135,18 @@
         id="card-container"
       ></section>
     </main>
+    <!-- ** Modal section -->
+    <!-- The button to open modal -->
+
+    <!-- Put this part before </body> tag -->
+    <input type="checkbox" id="my-modal" class="modal-toggle" />
+    <div class="modal">
+      <div class="modal-box" id="modal-body">
+        <div class="modal-action">
+          <label for="my-modal" class="btn">Yay!</label>
+        </div>
+      </div>
+    </div>
     <!-- ** flowbite script -->
     <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
     <!-- ** custom script -->

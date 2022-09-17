@@ -118,11 +118,7 @@ const dataDisplay = async()=>{
           <span class="text-3xl font-bold text-gray-900 dark:text-white"
             >$${price}</span
           >
-          <button
-            onclick="loadPhones('${id}')"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >Details</
-          button>
+          <label onclick="loadPhones('${id}')" for="my-modal" class="btn modal-button">Details</label>
           <button
             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >Add to cart</
@@ -146,10 +142,39 @@ const loadPhones = async(productId)=>{
 
     const phone = phones.find(phone => phone.id === productId);
 
-    return phone;
+    phoneDisplay(phone);
 };
 
 // ** display individual phone on modal
+const phoneDisplay = phone=>{
+  // ** Where to display
 
+  const phoneContainer = document.getElementById('modal-body');
+  
+  const {id,name,img,price} = phone;
+
+  phoneContainer.textContent = ``
+
+  phoneContainer.innerHTML = `
+  <div class="card w-96 bg-base-100 shadow-xl image-full">
+  <figure>
+    <img src="${img}" alt="Shoes" />
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title text-5xl text-cyan-600">Product: ${name}</h2>
+    <p>If a dog chews shoes whose shoes does he choose?</p>
+    <h2 class="card-title">Price:<span class="text-3xl text-blue-500">${price}</span> </h2>
+  </div>
+</div>
+<div class="modal-action">
+    <label for="my-modal" class="btn">Yay!</label>
+</div>
+  
+  `
+
+
+
+
+}
 
 dataDisplay()
