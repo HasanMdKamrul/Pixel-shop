@@ -180,7 +180,7 @@
             d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
             clip-rule="evenodd"
           ></path></svg
-        >Right drawer
+        >Products
       </h5>
       <button
         type="button"
@@ -203,16 +203,20 @@
         </svg>
         <span class="sr-only">Close menu</span>
       </button>
-      <p class="mb-6 text-sm text-gray-500 dark:text-gray-400">
-        Supercharge your hiring by taking advantage of our
-        <a
-          href="#"
-          class="text-blue-600 underline dark:text-blue-500 hover:no-underline"
-          >limited-time sale</a
-        >
-        for Flowbite Docs + Job Board. Unlimited access to over 190K top-ranked
-        candidates and the #1 design job board.
-      </p>
+      <!-- ** card of product -->
+
+      <div
+        class="p-4 w-full max-w-sm bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700"
+      >
+        <h5 class="mb-4 text-xl font-medium text-gray-500 dark:text-gray-400">
+          Product list
+        </h5>
+
+        <!-- List -->
+        <ul role="list" class="my-7 space-y-5" id="cart-products"></ul>
+        <section id="cart-calculation"></section>
+      </div>
+
       <div class="grid grid-cols-2 gap-4">
         <a
           href="#"

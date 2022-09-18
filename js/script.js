@@ -136,7 +136,7 @@ const dataDisplay = async()=>{
 // ** Add to cart functionality
 
 const products = [];
-let count;
+let count=0;
 
 const addToCart = async(productId)=>{
   // ** load data
@@ -148,11 +148,89 @@ const addToCart = async(productId)=>{
 
   count ++;
   
-  return products;
+  displayAddToCart(products);
 };
+
+// ** display product count
+
+const productCounter = ()=>{
+  const counterContainer = document.getElementById('drawer-right-label');
+  counterContainer.innerHTML = `Products: ${count}`
+}
+
+
 
 // ** display add to cart
 
+const displayAddToCart = (products)=>{
+  let newPrice = 0;
+  let tax;
+  let totalPriceOfProducts;
+  // ** where to display
+  const cartContainer = document.getElementById('cart-products');
+  // ** calculation display
+  const calculationContainer = document.getElementById('cart-calculation')
+  cartContainer.textContent = ``;
+  products.forEach(product => {
+    const {price,img,id,name} = product;
+
+    newPrice = newPrice+price;
+    tax = newPrice * 10/100;
+    totalPriceOfProducts = newPrice + tax;
+
+    const li = document.createElement('li');
+    li.classList.add('flex','space-x-3');
+    li.innerHTML = `
+     <!-- Icon -->
+           
+            <span
+              class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400"
+              >${name}</span
+            >
+            <p>${price}</p>
+            <img class='w-6' src=${img} alt="" />
+
+    `;
+
+    cartContainer.appendChild(li);
+
+    calculationContainer.innerHTML = `
+    
+      <div class="p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+          <a href="#">
+              <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Net price:${newPrice.toFixed(2)}</h5>
+          </a>
+          <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Tax:${tax.toFixed(2)}</p>
+          <a href="#" class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              Total Price: ${totalPriceOfProducts.toFixed(2)}
+              <svg aria-hidden="true" class="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+          </a>
+          <button onclick="clearProducts()" href="#" class="inline-flex mt-5 items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+              Clear products
+              <svg aria-hidden="true" class="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+          </button>
+      </div>
+
+    
+    `
+
+  })
+  productCounter();
+}
+
+// ** clear products func
+
+const clearProducts = ()=>{
+   // ** where to display
+   const cartContainer = document.getElementById('cart-products');
+   // ** calculation display
+   const calculationContainer = document.getElementById('cart-calculation')
+
+   cartContainer.textContent = ``;
+   calculationContainer.textContent = ``;
+
+   location.reload()
+}
 
 
 // ** load individual phone details
