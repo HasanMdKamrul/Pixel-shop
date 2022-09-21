@@ -18,7 +18,7 @@ const dataDisplay = async()=>{
     const cardContainer = document.getElementById('card-container');
     // ** data loaded
     const phones = await dataLoader();
-    console.log(phones)
+    // console.log(phones)
     // ** get the individual phones
 
     phones.forEach(phone => {
@@ -129,49 +129,91 @@ const dataDisplay = async()=>{
 
         `;
 
-        cardContainer.appendChild(div)
+        cardContainer.appendChild(div);
+
+        displayAddToCart();
 
     })
 };
 // ** Add to cart functionality
 
-const products = [];
 let count=0;
+// const products = [];
 
 const addToCart = async(productId)=>{
+  
+ 
   // ** load data
   const phones = await dataLoader();
   // **
   const item = phones.find(phone => productId === phone.id);
 
-  products.push(item);
+  // products.push(item);
 
   count ++;
-  
-  displayAddToCart(products);
+  // ** set count value to ls
+  localStorage.setItem('count',JSON.stringify(count));
+
+  // ** set the data to localStorage
+  setLocalStorageData(item)
+  displayAddToCart();
+ 
 };
 
 // ** display product count
 
 const productCounter = ()=>{
   const counterContainer = document.getElementById('drawer-right-label');
-  counterContainer.innerHTML = `Products: ${count}`
+  // ** get the counter value
+  const newCount = localStorage.getItem('count')
+  counterContainer.innerHTML = `Products: ${newCount}`
 }
 
 
 
-// ** display add to cart
 
-const displayAddToCart = (products)=>{
+
+// ** get the data from local storage
+
+const getLocalStorageData = ()=>{
+  const savedProducts = JSON.parse(localStorage.getItem('cart'));
+  let products = [];
+  savedProducts && (products = savedProducts)
+  return products;
+};
+
+// ** set data to localStorage
+
+const setLocalStorageData = (item)=>{
+  const savedProducts = getLocalStorageData();
+  if (savedProducts.length === 0) {
+    const newProducts = [
+      item
+    ]
+      localStorage.setItem('cart', JSON.stringify(newProducts))
+  } else{
+    const newProducts = [
+      ...savedProducts,
+      item
+    ];
+    localStorage.setItem('cart',JSON.stringify(newProducts))
+  }
+}
+
+const displayAddToCart = ()=>{
+  // ** display add to cart
   let newPrice = 0;
   let tax;
   let totalPriceOfProducts;
+  // ** get the value from ls
+  const savedProducts = getLocalStorageData();
+  console.log(savedProducts)
   // ** where to display
   const cartContainer = document.getElementById('cart-products');
   // ** calculation display
   const calculationContainer = document.getElementById('cart-calculation')
   cartContainer.textContent = ``;
-  products.forEach(product => {
+  savedProducts.forEach(product => {
     const {price,img,id,name} = product;
     console.log(price)
     newPrice = newPrice+price;
@@ -210,22 +252,25 @@ const displayAddToCart = (products)=>{
 
     `
 
-  })
+  });
   productCounter();
 }
 
 // ** clear products func
 
 const clearProducts = ()=>{
-   // ** where to display
-   const cartContainer = document.getElementById('cart-products');
    // ** calculation display
    const calculationContainer = document.getElementById('cart-calculation')
 
-   cartContainer.textContent = ``;
-   calculationContainer.textContent = ``;
+  
 
-   location.reload()
+  // ** localStorage remove
+
+  localStorage.removeItem('cart');
+  localStorage.removeItem('count');
+  calculationContainer.textContent = ``;
+  displayAddToCart()
+
 }
 
 
