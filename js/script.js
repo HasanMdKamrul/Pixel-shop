@@ -173,7 +173,7 @@ const displayAddToCart = (products)=>{
   cartContainer.textContent = ``;
   products.forEach(product => {
     const {price,img,id,name} = product;
-
+    console.log(price)
     newPrice = newPrice+price;
     tax = newPrice * 10/100;
     totalPriceOfProducts = newPrice + tax;
@@ -182,36 +182,32 @@ const displayAddToCart = (products)=>{
     li.classList.add('flex','space-x-3');
     li.innerHTML = `
      <!-- Icon -->
-           
             <span
               class="text-base font-normal leading-tight text-gray-500 dark:text-gray-400"
-              >${name}</span
+              >${name.slice(0,10)}</span
             >
             <p>${price}</p>
             <img class='w-6' src=${img} alt="" />
-
+            <button><i class="fa-solid fa-trash"></i></button>
     `;
 
     cartContainer.appendChild(li);
 
-    calculationContainer.innerHTML = `
-    
-      <div class="p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-          <a href="#">
-              <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Net price:${newPrice.toFixed(2)}</h5>
-          </a>
-          <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Tax:${tax.toFixed(2)}</p>
-          <a href="#" class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-              Total Price: ${totalPriceOfProducts.toFixed(2)}
-              <svg aria-hidden="true" class="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-          </a>
-          <button onclick="clearProducts()" href="#" class="inline-flex mt-5 items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-              Clear products
-              <svg aria-hidden="true" class="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-          </button>
-      </div>
+    // ${newPrice.toFixed(2)}
+    // Net price:${newPrice.toFixed(2)}
+    // Tax:${tax.toFixed(2)
+    // ${totalPriceOfProducts.toFixed(2)
+    // Clear products bitton
 
-    
+    calculationContainer.innerHTML = `
+
+    <div>
+      <p>Net price:${newPrice.toFixed(2)}</p>
+      <p>Tax:${tax.toFixed(2)}</p>
+      <p>Total:${totalPriceOfProducts.toFixed(2)} </p>
+      <button onclick="clearProducts()" class="px-3 py-2 bg-blue-500 rounded-xl text-white">Clear products</button>
+    </div>
+
     `
 
   })
@@ -257,14 +253,13 @@ const phoneDisplay = phone=>{
 
   phoneContainer.innerHTML = `
   <div class="card w-96 bg-base-100 shadow-xl image-full">
-  <figure>
-    <img src="${img}" alt="Shoes" />
-  </figure>
-  <div class="card-body">
-    <h2 class="card-title text-5xl text-cyan-600">Product: ${name}</h2>
-    <p>If a dog chews shoes whose shoes does he choose?</p>
-    <h2 class="card-title">Price:<span class="text-3xl text-blue-500">${price}</span> </h2>
-  </div>
+  <><figure>
+      <img src="${img}" alt="Shoes" />
+    </figure><div class="card-body">
+        <h2 class="card-title text-5xl text-cyan-600">Product: ${name}</h2>
+        <p>If a dog chews shoes whose shoes does he choose?</p>
+        <h2 class="card-title">Price:<span class="text-3xl text-blue-500">${price}</span> </h2>
+      </div></>
 </div>
 <div class="modal-action">
     <label for="my-modal" class="btn">Yay!</label>
