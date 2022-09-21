@@ -213,7 +213,7 @@ const displayAddToCart = ()=>{
   // ** calculation display
   const calculationContainer = document.getElementById('cart-calculation')
   cartContainer.textContent = ``;
-  savedProducts.forEach(product => {
+  savedProducts.forEach((product,index) => {
     const {price,img,id,name} = product;
     console.log(price)
     newPrice = newPrice+price;
@@ -230,7 +230,7 @@ const displayAddToCart = ()=>{
             >
             <p>${price}</p>
             <img class='w-6' src=${img} alt="" />
-            <button><i class="fa-solid fa-trash"></i></button>
+            <button onclick="deleteButton(${index})"><i class="fa-solid fa-trash"></i></button>
     `;
 
     cartContainer.appendChild(li);
@@ -254,16 +254,31 @@ const displayAddToCart = ()=>{
 
   });
   productCounter();
+};
+
+const deleteButton = (index)=>{
+  // ** get the value from localStorage
+  const savedCart = getLocalStorageData();
+
+  savedCart.splice(index,1);
+
+
+
+  // ** set data to ls
+
+  localStorage.setItem('cart',JSON.stringify(savedCart));
+
+  displayAddToCart();
+
 }
+
+
 
 // ** clear products func
 
 const clearProducts = ()=>{
    // ** calculation display
    const calculationContainer = document.getElementById('cart-calculation')
-
-  
-
   // ** localStorage remove
 
   localStorage.removeItem('cart');
