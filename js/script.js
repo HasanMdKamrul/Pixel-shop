@@ -244,9 +244,9 @@ savedProducts.forEach((product,index) => {
   calculationContainer.innerHTML = `
 
   <div>
-    <p id="netprice">Net price:${newPrice.toFixed(2)}</p>
-    <p id="taxprice">Tax:${tax.toFixed(2)}</p>
-    <p id="grandtotal">Total:${totalPriceOfProducts.toFixed(2)} </p>
+    <p id="netprice">Net price:${newPrice ? newPrice.toFixed(2): 0}</p>
+    <p id="taxprice">Tax:${tax ? tax.toFixed(2) : 0}</p>
+    <p id="grandtotal">Total:${totalPriceOfProducts ? totalPriceOfProducts.toFixed(2): 0} </p>
     <button onclick="clearProducts()" class="px-3 py-2 bg-blue-500 rounded-xl text-white">Clear products</button>
   </div>
 
@@ -266,6 +266,16 @@ const deleteButton = (index)=>{
   let grandtotal = getInnerText('grandtotal');
 
 
+
+  const countSaved = localStorage.getItem('count');
+
+  const newCount = countSaved - 1;
+
+  // ** update count
+
+  localStorage.setItem('count',JSON.stringify(newCount))
+
+
 // ** get the value from localStorage
 const savedCart = getLocalStorageData();
 
@@ -274,11 +284,26 @@ const deleteValue = savedCart.splice(index,1);
 const {price} = deleteValue[0];
 
 netPrice = netPrice-price;
-document.getElementById('netprice').innerText = netPrice;
 taxprice = netPrice * 10/100;
-document.getElementById('taxprice').innerText = taxprice;
-
 grandtotal = netPrice - taxprice;
+
+if (isNaN(netPrice) ) {
+  netPrice = 0;
+ 
+}
+
+if (isNaN(taxprice)) {
+  taxprice = 0;
+ 
+}
+
+
+if (isNaN(grandtotal)) {
+  grandtotal = 0;
+  
+}
+document.getElementById('taxprice').innerText = taxprice;
+document.getElementById('netprice').innerText = netPrice;
 document.getElementById('grandtotal').innerText = grandtotal;
 
 
