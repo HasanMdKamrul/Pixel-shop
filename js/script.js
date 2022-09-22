@@ -1,3 +1,5 @@
+
+let count=0;
 // ** load data 
 
 const dataLoader = async()=>{
@@ -137,7 +139,6 @@ const dataDisplay = async()=>{
 };
 // ** Add to cart functionality
 
-let count=0;
 // const products = [];
 
 const addToCart = async(productId)=>{
@@ -265,15 +266,11 @@ const deleteButton = (index)=>{
   let taxprice = getInnerText('taxprice');
   let grandtotal = getInnerText('grandtotal');
 
-
-
-  const countSaved = localStorage.getItem('count');
-
-  const newCount = countSaved - 1;
+  count--;
 
   // ** update count
 
-  localStorage.setItem('count',JSON.stringify(newCount))
+  localStorage.setItem('count',JSON.stringify(count))
 
 
 // ** get the value from localStorage
