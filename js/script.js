@@ -265,6 +265,9 @@ const order = ()=>{
   const cardContainer = document.getElementById('card-container');
 
   cardContainer.textContent = ``;
+
+  const thankyou = document.getElementById('thankyou');
+  thankyou.classList.remove('hidden')
   // ** get the individual phones
 
   // cardContainer.parentNode.innerHTML = `<h1>Thank you for your order</h1>`
