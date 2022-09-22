@@ -166,7 +166,7 @@ const productCounter = ()=>{
 const counterContainer = document.getElementById('drawer-right-label');
 // ** get the counter value
 const newCount = localStorage.getItem('count')
-counterContainer.innerHTML = `Products: ${newCount}`
+counterContainer.innerHTML = `Products: ${newCount ? newCount : "No products avaiable"}`
 }
 
 
